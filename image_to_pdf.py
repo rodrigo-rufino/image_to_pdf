@@ -51,9 +51,6 @@ def merge_pdfs(directory):
         filename = directory + "\\" + filename
         if filename.endswith('.pdf') and not filename==output_file:
             contains_pdf = True
-            break    
-        else:
-            print "No PDFs found to merge at " + filename
             break
 
     if not os.path.isfile(output_file) and contains_pdf:
@@ -110,13 +107,17 @@ def move_all_to_output(files):
 
 if __name__=="__main__":
     
-    # Current directory
     if len(sys.argv) == 1:
+        # Put this file on the desired folder and run it with:
+        #   "python image_to_pdf.py"
+        # Current directory
         directory = "./"
         dir_images_to_pdf(directory)
         merge_pdfs(directory)
-    # For multiple directories
+
     else:
+        # For multiple directories
+        # Usage "python image_to_pdf.py ./*"
         files = []
         for arg in sys.argv[1:]:
             if os.path.isdir(arg) and not arg=="output":
@@ -127,5 +128,3 @@ if __name__=="__main__":
                 files.append(merge_pdfs(directory))
 
         move_all_to_output(files)
-
-    # For multiple subdirectories (uncomment the bellow section)
